@@ -1,3 +1,4 @@
+import numpy as np
 def init_network():
     network = {}
     network['W1'] = np.array([[0.1, 0.3, 0.5], [0.2, 0.4, 0.6]])
@@ -17,8 +18,13 @@ def forward(network, x):
     a3 = np.dot(z2, W3) + b3
     y = identity_function(a3)
     return y
-
-network = init_network()
-x = np.array([1.0, 0.5])
-y = forward(network, x)
-print(y) # [ 0.31682708  0.69627909]
+def softmax(a):
+    c = np.max(a)
+    exp_a = np.exp(a - c) # オーバーフロー対策
+    sum_exp_a = np.sum(exp_a)
+    y = exp_a / sum_exp_a
+    return y
+#network = init_network()
+#x = np.array([1.0, 0.5])
+#y = forward(network, x)
+#print(y) # [ 0.31682708  0.69627909]
